@@ -1,0 +1,24 @@
+title: MSHTA Executing Remote Script
+id: 5d4e9d13-1a5b-4e1e-bb52-dbmshta01
+status: experimental
+description: Detects mshta executing remote or suspicious script content.
+author: David Bigger
+date: 2026/02/17
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\mshta.exe'
+    CommandLine|contains:
+      - 'http'
+      - '.hta'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Rare legacy enterprise HTA applications
+level: high

@@ -1,0 +1,26 @@
+title: Suspicious Certutil File Download
+id: 9f4e9d13-1a5b-4e1e-bb52-dbcertutil01
+status: experimental
+description: Detects use of certutil to download remote payloads.
+author: David Bigger
+date: 2026/02/17
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\certutil.exe'
+    CommandLine|contains:
+      - '-urlcache'
+      - '-split'
+      - 'http'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Rare certificate troubleshooting
+  - Manual certificate retrieval by administrators
+level: medium

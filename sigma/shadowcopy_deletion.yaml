@@ -1,0 +1,33 @@
+title: Shadow Copy Deletion via VSSAdmin, WMIC, or PowerShell
+id: 7a4e9d13-1a5b-4e1e-bb52-dbshadow01
+status: experimental
+description: Detects deletion of Volume Shadow Copies commonly performed prior to ransomware encryption.
+author: David Bigger
+date: 2026/02/17
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_vssadmin:
+    Image|endswith: '\vssadmin.exe'
+    CommandLine|contains: 'delete shadows'
+  selection_wmic:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains: 'shadowcopy delete'
+  selection_powershell:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains:
+      - 'Get-WmiObject Win32_Shadowcopy'
+      - 'Remove-WmiObject'
+  condition: selection_vssadmin or selection_wmic or selection_powershell
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Rare legitimate administrative backup maintenance
+  - Backup software uninstall routines
+level: high

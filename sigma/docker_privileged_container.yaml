@@ -1,0 +1,22 @@
+title: Docker Container Started in Privileged Mode
+id: 8e4e9d13-1a5b-4e1e-bb52-dbdocker01
+status: experimental
+description: Detects docker containers launched with --privileged which may indicate container breakout risk.
+author: David Bigger
+date: 2026/02/17
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '/docker'
+    CommandLine|contains: '--privileged'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - User
+falsepositives:
+  - Legitimate DevOps testing
+  - Hardware passthrough use cases
+level: medium

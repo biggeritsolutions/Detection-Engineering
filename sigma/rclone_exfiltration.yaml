@@ -1,0 +1,22 @@
+title: Potential Data Exfiltration via Rclone
+id: 2c4e9d13-1a5b-4e1e-bb52-dbrclone01
+status: experimental
+description: Detects execution of rclone which is commonly used in ransomware data exfiltration.
+author: David Bigger
+date: 2026/02/17
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\rclone.exe'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - Legitimate backup operations
+  - IT data migrations
+level: high
