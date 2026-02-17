@@ -9,6 +9,7 @@ Detection engineering is not about alert volume — it's about adversary cost.
 This repository contains practical Sigma rules and detection write-ups focused on:
 - Small and mid-sized business (SMB) environments
 - Windows-heavy ecosystems
+- My personal experiences
 - Minimal telemetry assumptions
 - High-signal tradecraft detection
 - Clear tuning guidance
