@@ -1,0 +1,14 @@
+{
+  "ssh_port": 22,
+  "http_port": 80,
+  "trap_ports": [21, 23, 25, 53, 110, 143, 443, 445, 3306, 3389, 5900, 8080, 8443],
+  "scan_threshold_ports": 3,
+  "scan_threshold_seconds": 30,
+  "log_file": "honeypot.json",
+  "webhook_url": "",
+  "webhook_events": ["port_scan", "ssh_attempt"],
+  "ssh_banner": "SSH-2.0-OpenSSH_8.4p1 Debian-5+deb11u1",
+  "http_server_header": "Apache/2.4.54 (Debian)",
+  "host_key_file": "host_key.pem",
+  "max_ssh_session_seconds": 30
+}
